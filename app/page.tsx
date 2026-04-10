@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Scale, Search, Mail, Zap, ChevronRight, Loader2, Gavel, LayoutDashboard, FileText, CheckCircle2, Clock, ShieldCheck, AlertCircle } from 'lucide-react';
+import { Scale, Search, Mail, Zap, ChevronRight, Loader2, Gavel, LayoutDashboard, FileText, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function NyayaAI() {
@@ -21,7 +21,7 @@ export default function NyayaAI() {
 
     // DIAGNOSTIC CHECK: Is the key reaching the app?
     if (!apiKey) {
-      setAiResponse("❌ CONFIG ERROR: The API Key is not being detected by the application. \n\nPROCEDURAL STEPS TO FIX:\n1. Verify the name in Vercel is EXACTLY: NEXT_PUBLIC_GEMINI_API_KEY\n2. Ensure you clicked 'Save' in Vercel Settings.\n3. Run a Fresh Deployment (Redeploy) without using the Build Cache.");
+      setAiResponse("❌ CONFIG ERROR: The API Key is not being detected. \n\nPROCEDURAL STEPS TO FIX:\n1. Verify the name in Vercel is EXACTLY: NEXT_PUBLIC_GEMINI_API_KEY\n2. Ensure you clicked 'Save' in Vercel Settings.\n3. Run a Fresh Deployment (Redeploy) without using the Build Cache.");
       setShowResult(true);
       setIsSearching(false);
       return;
@@ -69,7 +69,7 @@ export default function NyayaAI() {
         
         <nav className="space-y-2 flex-1">
           <TabButton active={activeTab === 'dashboard'} onClick={() => setActiveTab('dashboard')} icon={<LayoutDashboard size={20}/>} label="Command Center" />
-          <TabButton active={activeTab === 'research'} onClick={() => setActiveTab('research'} icon={<Zap size={20}/>} label="Deep Research" />
+          <TabButton active={activeTab === 'research'} onClick={() => setActiveTab('research')} icon={<Zap size={20}/>} label="Deep Research" />
           <TabButton active={activeTab === 'filing'} onClick={() => setActiveTab('filing')} icon={<Gavel size={20}/>} label="E-Filing Portal" />
         </nav>
 
