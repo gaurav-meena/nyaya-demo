@@ -18,15 +18,15 @@ export default function NyayaAI() {
     const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
     if (!apiKey) {
-      setAiResponse("❌ CONFIG ERROR: API Key missing in Vercel. Please check Settings > Environment Variables.");
+      setAiResponse("❌ CONFIG ERROR: API Key missing in Vercel settings.");
       setShowResult(true);
       setIsSearching(false);
       return;
     }
 
     try {
-      // UPDATED TO STABLE v1 ENDPOINT
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+      // UPDATED TO 2.5 FLASH
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -39,15 +39,14 @@ export default function NyayaAI() {
       const data = await response.json();
       
       if (data.error) {
-        // More helpful error message for debugging
-        setAiResponse(`❌ GOOGLE API ERROR (${data.error.code}): ${data.error.message}\n\nTip: Ensure the 'Generative Language API' is enabled in your Google Cloud Project.`);
+        setAiResponse(`❌ API ERROR: ${data.error.message}`);
       } else {
         const resultText = data.candidates[0].content.parts[0].text;
         setAiResponse(resultText);
       }
       setShowResult(true);
     } catch (error) {
-      setAiResponse("❌ NETWORK ERROR: Could not connect to the server. Check your internet.");
+      setAiResponse("❌ CONNECTION ERROR: Could not reach the Gemini 2.5 engine.");
       setShowResult(true);
     } finally {
       setIsSearching(false);
@@ -56,6 +55,7 @@ export default function NyayaAI() {
 
   return (
     <div className="flex h-screen bg-[#f8fafc] text-slate-900 font-sans overflow-hidden">
+      {/* Sidebar */}
       <aside className="w-72 bg-slate-900 text-white p-8 flex flex-col shadow-2xl border-r border-slate-800">
         <div className="flex items-center gap-3 mb-12">
           <div className="bg-teal-500 p-2.5 rounded-xl shadow-lg shadow-teal-500/20">
@@ -82,13 +82,14 @@ export default function NyayaAI() {
         </div>
       </aside>
 
+      {/* Main Content */}
       <main className="flex-1 overflow-y-auto bg-gradient-to-br from-slate-50 to-slate-100 p-12">
         {activeTab === 'dashboard' && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
             <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-8">Morning, Counsel.</h1>
             <div className="grid grid-cols-2 gap-8">
-              <DashboardCard title="Urgent Updates" icon={<Mail className="text-teal-500" />}>
-                <p className="text-sm font-medium text-slate-600 italic">No pending notifications from GNLU registrar.</p>
+              <DashboardCard title="System Status" icon={<ShieldCheck className="text-teal-500" />}>
+                <p className="text-sm font-medium text-slate-600">Gemini 2.5 Flash Engine Connected.</p>
               </DashboardCard>
             </div>
           </motion.div>
@@ -106,7 +107,7 @@ export default function NyayaAI() {
                   onChange={(e) => setUserInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAISearch()}
                   className="w-full bg-slate-50 border-2 border-slate-100 rounded-3xl py-6 px-8 text-lg focus:border-teal-400/50 outline-none"
-                  placeholder="Case facts (e.g. Compensation for sand mining ban)..."
+                  placeholder="Ask Gemini 2.5 about any legal point..."
                 />
                 <button 
                   onClick={handleAISearch} 
