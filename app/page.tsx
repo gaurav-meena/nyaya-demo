@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import {
   Scale, Search, Zap, Loader2, Gavel, LayoutDashboard,
-  ShieldCheck, Bell, Calendar,
+  ShieldCheck, Bell, Calendar, Briefcase,
   ChevronRight, Copy, Check, AlertCircle,
   Clock, FileText, Plus, Upload, Download,
   User, Settings, RefreshCw,
@@ -160,6 +160,26 @@ export default function NyayaAI() {
           </motion.div>
         )}
 
+        {/* ── CASE DIARY ── */}
+        {activeTab === 'casediary' && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-8">
+            <h1 className="text-2xl font-bold mb-6">Case Diary</h1>
+            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+              <div className="divide-y divide-slate-50">
+                {filteredCases.map(c => (
+                  <div key={c.id} className="flex items-center justify-between px-6 py-4">
+                    <div>
+                      <p className="text-sm font-semibold">{c.title}</p>
+                      <p className="text-[11px] text-slate-400">{c.caseNo}</p>
+                    </div>
+                    <span className={`text-[10px] font-bold px-2 py-1 rounded-lg border capitalize ${STATUS_STYLES[c.status]}`}>{c.status}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+
         {/* ── AI RESEARCH ── */}
         {activeTab === 'research' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-8 max-w-4xl">
@@ -190,7 +210,6 @@ export default function NyayaAI() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-8 h-full flex flex-col">
             <h1 className="text-2xl font-bold mb-4">Note Maker</h1>
             
-            {/* Toolbar - FIXED: Removed duplicate title={tip} */}
             <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-xl px-3 py-2 mb-3 flex-shrink-0 flex-wrap">
               {[
                 { icon: Bold, tip: 'Bold' }, { icon: Italic, tip: 'Italic' },
@@ -217,26 +236,6 @@ export default function NyayaAI() {
         )}
 
       </main>
-    </div>
-  );
-}
-
-function TabButton({ active, onClick, icon: Icon, label }: any) {
-  return (
-    <button onClick={onClick} className={`w-full flex items-center gap-3 p-4 rounded-2xl transition-all ${active ? 'bg-teal-500 text-white font-bold' : 'text-slate-400 hover:bg-slate-800'}`}>
-      <Icon size={16} /> <span>{label}</span>
-    </button>
-  );
-}
-
-function DashboardCard({ title, icon: Icon, children }: any) {
-  return (
-    <div className="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="font-bold text-lg">{title}</h3>
-        <Icon />
-      </div>
-      {children}
     </div>
   );
 }
