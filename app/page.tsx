@@ -175,7 +175,7 @@ export default function NyayaAI() {
             </div>
             <div className="min-w-0">
               <p className="text-xs font-semibold text-white truncate">Adv. Gaurav Meena</p>
-              <p className="text-[9px] text-slate-500 truncate">Rajasthan HC · ST Category</p>
+              <p className="text-[9px] text-slate-500 truncate">Rajasthan HC · CAT</p>
             </div>
           </div>
         </div>
