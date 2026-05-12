@@ -8,7 +8,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Nyaya.ai — Legal OS",
+  title: "Dictum.ai — Legal OS",
   description: "AI-powered practice management for Indian advocates.",
 };
 

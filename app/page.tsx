@@ -61,7 +61,7 @@ const TABS = [
 ];
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
-export default function NyayaAI() {
+export default function DictumAI() {
   const [tab, setTab] = useState("dashboard");
   const [searching, setSearching] = useState(false);
   const [showResult, setShowResult] = useState(false);
@@ -145,7 +145,7 @@ export default function NyayaAI() {
             <div className="w-7 h-7 bg-teal-400 rounded-lg flex items-center justify-center flex-shrink-0">
               <Scale size={14} className="text-[#0f1623]" />
             </div>
-            <span className="text-base font-bold tracking-tight text-white">Nyaya<span className="text-teal-400">.ai</span></span>
+            <span className="text-base font-bold tracking-tight text-white">Dictum<span className="text-teal-400">.ai</span></span>
           </div>
           <p className="text-[9px] text-slate-500 mt-1 uppercase tracking-widest">Legal Operating System v2</p>
         </div>
